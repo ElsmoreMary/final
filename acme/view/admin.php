@@ -32,7 +32,6 @@ header('location:/acme/index.php');
                             <li>First name: $firstname</li>
                             <li>Last name: $lastname</li>
                             <li>Email: $emailaddress</li>
-                            <li>Level: $level</li>
                         </ul>";
                     if ($level == 3){
                     echo '<a href="/acme/products/index.php?action=product-mgmt">Products</a><br>';
