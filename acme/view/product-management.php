@@ -3,7 +3,9 @@ if ($_SESSION['clientData']['clientLevel'] < 2) {
  header('location: /acme/');
  exit;
 }
-?>
+if(isset($_SESSION['message'])){
+    $message = $_SESSION['message'];
+}?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,8 +37,7 @@ if ($_SESSION['clientData']['clientLevel'] < 2) {
         } if (isset($prodList)) {
          echo $prodList;
         }
-        ?>
-            
+        ?>   
         </main>
         <footer>
             <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
@@ -44,3 +45,4 @@ if ($_SESSION['clientData']['clientLevel'] < 2) {
         </div>
     </body>
 </html>
+<?php unset($_SESSION['message']);?>

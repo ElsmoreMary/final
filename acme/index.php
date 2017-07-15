@@ -11,6 +11,7 @@ session_start();
 require_once 'library/connections.php';
 // Get the acme model for use as needed
 require_once 'model/acme-model.php';
+require_once 'library/functions.php';
 
 // Get the array of categories
 $categories = getCategories();

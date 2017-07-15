@@ -60,3 +60,53 @@ function getClient($email){
   $stmt->closeCursor();
   return $clientData;
 }
+
+function getClientByEmailAndPassword($emailaddress, $updatePass) {
+    $db = acmeConnect();
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "SELECT clientId, clientFirstname, clientLastname, clientEmail, clientLevel, clientPassword FROM clients WHERE clientEmail = :emailaddress AND clientPassword = :updatePass";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':emailaddress', $emailaddress, PDO::PARAM_STR);
+    $stmt->bindValue(':updatePass', $updatePass, PDO::PARAM_STR);
+    $stmt->execute();
+    $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $clientData;
+}
+
+function updateData($updateId) {
+     $db = acmeConnect();
+     $sql = 'SELECT * FROM clients WHERE clientId = :updateId';
+     $stmt = $db->prepare($sql);
+     $stmt->bindValue (':updateId', $updateId, PDO::PARAM_INT);
+     $stmt->execute();
+     $clientInfo = $stmt->fetch(PDO::FETCH_NAMED);
+     $stmt->closeCursor();
+     return $clientInfo;
+ }
+ 
+ function updateAccount($updateId, $upfirstName, $uplastName, $upEmail){
+     $db = acmeConnect();
+      $sql = 'UPDATE clients SET clientFirstname = :upfirstName, clientLastname = :uplastName, clientEmail = :upEmail WHERE clientId = :updateId';
+   $stmt = $db->prepare($sql);
+   $stmt->bindValue(':updateId', $updateId, PDO::PARAM_INT);
+   $stmt->bindValue(':upfirstName', $upfirstName, PDO::PARAM_STR);
+   $stmt->bindValue(':uplastName', $uplastName, PDO::PARAM_STR);
+   $stmt->bindValue(':upEmail', $upEmail, PDO::PARAM_STR);
+   $stmt->execute();
+   $rowsChanged = $stmt->rowCount();
+   $stmt->closeCursor();
+   return $rowsChanged;
+ }
+ 
+ function updatePassword($updateId, $updatePass) {
+    $db = acmeConnect();
+    $sql = 'UPDATE clients Set clientPassword = :updatePass WHERE clientId= :updateId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':updateId', $updateId, PDO::PARAM_INT);
+    $stmt->bindValue(':updatePass', $updatePass, PDO::PARAM_STR);
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $rowsChanged;
+}     

@@ -43,7 +43,7 @@ if ($action == NULL){
  }
 }
 switch ($action) {
-    case'product-mgmt':
+    case 'product-mgmt':
         $products = getProductBasics();
         if(count($products) > 0){
         $prodList = '<table>';
@@ -134,10 +134,76 @@ switch ($action) {
         if(count($prodInfo)<1){
             $message = 'Sorry, no product information could be found.';
         }
-        include '../view/prod-update.php';
+        include '../view/product-update.php';
         exit;
         break;
+    case 'updateProd':
+        $catType = filter_input(INPUT_POST, 'catType', FILTER_SANITIZE_NUMBER_INT);
+        $prodName = filter_input(INPUT_POST, 'prodName', FILTER_SANITIZE_STRING);
+        $prodDescription = filter_input(INPUT_POST, 'prodDescription', FILTER_SANITIZE_STRING);
+        $prodImage = filter_input(INPUT_POST, 'prodImage', FILTER_SANITIZE_STRING);
+        $prodThumbnail = filter_input(INPUT_POST, 'prodThumbnail', FILTER_SANITIZE_STRING);
+        $prodPrice = filter_input(INPUT_POST, 'prodPrice', FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+        $prodStock = filter_input(INPUT_POST, 'prodStock', FILTER_SANITIZE_NUMBER_INT);
+        $prodSize = filter_input(INPUT_POST, 'prodSize', FILTER_SANITIZE_NUMBER_INT);
+        $prodWeight = filter_input(INPUT_POST, 'prodWeight', FILTER_SANITIZE_NUMBER_INT);
+        $prodLocation = filter_input(INPUT_POST, 'prodLocation', FILTER_SANITIZE_STRING);
+        $prodVendor = filter_input(INPUT_POST, 'prodVendor', FILTER_SANITIZE_STRING);
+        $prodStyle = filter_input(INPUT_POST, 'prodStyle', FILTER_SANITIZE_STRING);
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+          
+          
+          if (empty($catType) || empty($prodName) || empty($prodDescription) || empty($prodImage) || empty($prodThumbnail) || empty($prodPrice) || empty($prodStock) || empty($prodSize)  || empty($prodWeight)  || empty($prodLocation) || empty ($prodVendor) || empty($prodStyle)){
+              
+        $message ='<p>Please complete all information of the item! Double check the category of the item.</p>';
+              include '../view/prod-update.php';
+              exit;
+          }
+          
+          $updateResult = updateProduct($catType, $prodName, $prodDescription, $prodImage, $prodThumbnail, $prodPrice, $prodStock, $prodSize, $prodWeight, $prodLocation, $prodVendor, $prodStyle, $prodId);
+          
+          if ($updateResult) {
+              $message = "<p>Congratulations, $prodName was sucessfully updated.</p>";
+              $_SESSION['message'] = $message;
+              header('location: /acme/products/');
+              exit;
+          } else {
+              $message = "<p>Error. $prodName was not updated.</p>";
+              include '../view/product-update.php';
+              exit;
+          }
+        break;
+        
+        case 'del':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+        if (count($prodInfo) < 1) {
+         $message = 'Sorry, no product information could be found.';
+        }
+        include '../view/product-delete.php';
+        exit;
+    break;
     
+    case 'deleteProd':
+        $prodName = filter_input(INPUT_POST, 'prodName', FILTER_SANITIZE_STRING);
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+        
+        $deleteResult = deleteProduct($prodId);
+        if ($deleteResult) {
+         $message = "<p>Congratulations, $prodName was successfully deleted.</p>";
+         $_SESSION['message'] = $message;
+         header('location:/acme/products/');
+         exit;
+        } else {
+         $message = "<p>Error: $prodName was not deleted.</p>";
+         $_SESSION['message'] = $message;
+         header('location:/acme/products/');
+         exit;
+        }
+     
+      default;
+      include'../view/product-management.php';
+      exit;
 }
 //var_dump($categories);
 //exit;
