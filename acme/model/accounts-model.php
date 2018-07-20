@@ -1,9 +1,7 @@
 <?php
-
 /* 
  *  This is the Accounts Model
  */
-
 // Register a new site visitor
 function regVisitor($firstname, $lastname, $email, $password){
 // Create a connection object using the acme connection function
@@ -30,7 +28,6 @@ function regVisitor($firstname, $lastname, $email, $password){
 // Return the indication of success (rows changed)
    return $rowsChanged;
 }
-
 // Check for an existing email address
 function checkExistingEmail($email) {
   $db = acmeConnect();
@@ -42,11 +39,8 @@ function checkExistingEmail($email) {
   $stmt->closeCursor();
   if(empty($matchEmail)){
     return 0; 
-//    echo 'Nothing found';
   } else {
     return 1;
-//    echo 'Match found';
-//    exit;
   }
 }
 // Get client data based on an email address
@@ -60,7 +54,6 @@ function getClient($email){
   $stmt->closeCursor();
   return $clientData;
 }
-
 function getClientByEmailAndPassword($emailaddress, $updatePass) {
     $db = acmeConnect();
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -73,7 +66,6 @@ function getClientByEmailAndPassword($emailaddress, $updatePass) {
     $stmt->closeCursor();
     return $clientData;
 }
-
 function updateData($updateId) {
      $db = acmeConnect();
      $sql = 'SELECT * FROM clients WHERE clientId = :updateId';

@@ -1,0 +1,523 @@
+@import url('https://fonts.googleapis.com/css?family=Walter+Turncoat');
+
+@media screen and (max-width: 901px){
+
+/* Body Style */
+
+body {
+    font-size: 16px;
+    font-family: Verdana, Geneva, sans-serif;
+    background-image: url("/acme/images/site/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header, main, footer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+    
+#page-container {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Walter Turncoat', cursive;
+}
+
+/* Header Style */
+
+#header {
+    display: flex;
+}
+.acmelogo {
+    padding: 10px;
+    justify-content: flex-start;
+    width: 200px;
+    height: 80px;
+}
+
+.account {
+    display: flex;
+    justify-content: flex-end;
+    flex: 3;
+
+  
+}
+.accountfolder {
+    height: 20px;
+    padding: 15px 10px 0px 0px ;
+}
+
+.account a {
+  text-decoration: none;
+}
+
+.account a:hover {
+  color: #de2226;
+  
+}
+
+/* Main Navigation Style */
+
+nav {
+    width: 100%;
+    background-color: #de2226;
+}
+nav ul {
+   overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+nav li {
+  list-style-type: none;
+  float: left;
+}
+
+nav ul li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    color: #ffffff;
+}
+ 
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  display: block;
+}
+ 
+nav a:hover {
+  background-color: #ffffff;
+  color: #de2226;
+}
+ 
+nav a:active {
+    background-color: #ffffff;
+    color: #de2226;
+}
+
+nav a:visited {
+    background-color: #de2226;
+    color: #000000;
+}
+
+    
+/* Banner Style */
+
+.banner {
+    height: 400px;
+    width: 100%;
+    background-image: url("/acme/images/site/rocketfeature.jpg");
+    background-repeat: no-repeat;
+
+}
+.banner-text {
+    width: 40%;
+    float: right;
+}
+
+.banner-ul {
+    font-size: 13px;
+    list-style-type: none;
+    color: #990033
+}
+
+.banner-li {
+  font-size: 13px;
+}
+
+#actionbtn {
+  width: 180px;
+
+}
+
+/* Featured Recipes*/
+
+.recipes {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    text-align: center;
+}
+    
+.recipes > div {
+  background-color: #f1f1f1;  
+  width: 250px;
+  margin: 10px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+/* Reviews Style */
+
+.reviews-column {
+    line-height: 1.3;
+    
+}
+
+/* Footer Navigation Style */
+
+footer {
+    border-top: 2px solid #000000;
+    padding: 10px;
+    margin-top: 80px;
+    text-align: center;
+}
+
+/* Product Management Style */
+
+.product a {
+  color: #de2226;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 16px;
+}
+
+.product a:hover {
+  color: #de2226;
+  font-weight: bold;
+}
+
+/* Table Style */
+
+table {
+    font-family: Verdana, Geneva, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table th {
+    font-family: 'Walter Turncoat', cursive;
+    font-size: 32px;
+    padding-top: 12px;
+    padding-bottom: 16px;
+    text-align: left;
+}
+
+table a {
+  color: #de2226;
+  text-decoration: none;
+}
+
+table a:hover {
+  color: #de2226;
+  text-decoration: underline;
+}
+}
+
+/* Client Form Style */
+
+#form label{
+   line-height: 1.8em;
+}
+
+#formtwo i {
+   font-size: 12px;
+   color: #de2226;  
+}
+
+   #prod-display{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    #prod-display li{
+        margin: 5px;
+        border: 1px #ccc solid;
+        list-style-type: none;
+        flex: 1 1 auto;
+    }
+    #prod-display li img{
+        width: 250px;
+        height: 250px;
+    }
+
+    #prod-detail{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    #prod-detail li{
+        margin-bottom: .5em;
+        list-style-type: none;
+        flex: 1 1 auto;
+        float: right;
+        max-width: 50%;
+    }
+    #prod-detail li img{
+        width: 250px;
+    }
+    
+    #image-display {
+        display: flex;
+        list-style-type: none;
+    }
+
+/* Desktop Style */
+
+@media screen and (min-width: 900px){
+
+/* Body Style */
+
+body {
+    font-size: 16px;
+    font-family: Verdana, Geneva, sans-serif;
+    background-image: url("/acme/images/site/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header, main, footer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#page-container {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffffff;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Walter Turncoat', cursive;
+}
+
+/* Header Style */
+
+#header {
+    display: flex;
+}
+.acmelogo {
+    padding: 10px;
+    justify-content: flex-start;
+    width: 200px;
+    height: 80px;
+    
+}
+
+.account {
+    display: flex;
+    justify-content: flex-end;
+    flex: 3;
+  
+}
+.accountfolder {
+    height: 20px;
+    padding: 15px 10px 0px 0px ;
+}
+
+.account a {
+  text-decoration: none;
+}
+
+.account a:hover {
+  color: #de2226;
+  
+}
+
+/* Main Navigation Style */
+
+nav {
+    width: 100%;
+    background-color: #de2226;
+}
+nav ul {
+   overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+nav li {
+  list-style-type: none;
+  float: left;
+}
+
+nav ul li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    color: #ffffff;
+}
+ 
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  display: block;
+}
+ 
+nav a:hover {
+  background-color: #ffffff;
+  color: #de2226;
+}
+ 
+nav a:active {
+    background-color: #ffffff;
+    color: #de2226;
+}
+
+nav a:visited {
+    background-color: #de2226;
+    color: #000000;
+}
+
+/* Banner Style */
+
+.banner {
+    height: 400px;
+    width: 100%;
+    background-image: url("/acme/images/site/rocketfeature.jpg");
+    background-repeat: no-repeat;
+}
+.banner-text {
+    width: 40%;
+    float: right;
+}
+
+.banner-ul {
+    list-style-type: none;
+    color: #990033;
+}
+
+/* Featured Recipes*/
+
+.container {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.recipes {
+   
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    text-align: center;
+    flex: 1;
+}
+
+.recipes > div {
+  background-color: #f1f1f1;
+  width: 110px;
+  margin: 10px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 16px;
+}
+
+
+/* Reviews Style */
+
+.reviews {
+    line-height: 1.3;
+    flex: 1;
+   
+}
+
+/* Footer Navigation Style */
+
+footer {
+    border-top: 2px solid #000000;
+    padding: 5px;
+    margin-top: 80px;
+    text-align: center;
+}
+
+/* Product Management Style */
+
+.product a {
+  color: #de2226;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 16px;
+}
+
+.product a:hover {
+  color: #de2226;
+  font-weight: bold;
+}
+
+/* Client Form Style */
+
+#form label{
+   line-height: 1.8em;
+}
+
+#formtwo i {
+   font-size: 13px;
+   color: #de2226;
+  
+   
+}
+
+#formtwo
+/* Table Style */
+
+table {
+    font-family: Verdana, Geneva, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+}
+
+table td, table th {
+    padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table th {
+    font-family: 'Walter Turncoat', cursive;
+    font-size: 32px;
+    padding-top: 12px;
+    padding-bottom: 16px;
+    text-align: left;  
+}
+
+table a {
+  color: #de2226;
+  text-decoration: none;
+}
+
+table a:hover {
+  color: #de2226;
+  text-decoration: underline;
+}
+
+#prod-display{
+        flex-flow: row wrap;
+        justify-content: flex-start;
+    }
+    #prod-display li{
+        flex: 1 0 auto;
+        text-align: center;
+        font-size: 1em;
+    }
+
+    #prod-detail {
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+    #prod-detail li{
+        flex: 1 0 auto;
+        text-align: center;
+        font-size: 1em;
+    }
+    
+    #image-display {
+        display: flex;
+        list-style-type: none;
+    }
+}

@@ -12,29 +12,6 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
---
--- Table structure for table `categories`
---
-DROP TABLE IF EXISTS `categories`;
-CREATE TABLE `categories` (
-  `categoryId` int(10) UNSIGNED NOT NULL,
-  `categoryName` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Category classifications of inventory items';
-
---
--- Data for table `categories`
---
-
-INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
-(1, 'Cannon'),
-(2, 'Explosive'),
-(3, 'Misc'),
-(4, 'Rocket'),
-(5, 'Trap');
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `inventory`
 --
@@ -80,12 +57,6 @@ INSERT INTO `inventory` (`invId`, `invName`, `invDescription`, `invImage`, `invT
 -- --------------------------------------------------------
 
 --
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`categoryId`);
-
---
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -94,20 +65,47 @@ ALTER TABLE `inventory`
 
 
 --
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-MODIFY `categoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
-
---
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory` 
 MODIFY `invId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
+-- -------------------------------------------------------
+--
+-- Table structure for table `categories`
+--
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE `categories` (
+  `categoryId` int(10) UNSIGNED NOT NULL,
+  `categoryName` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Category classifications of inventory items';
+
+--
+-- Data for table `categories`
+--
+
+INSERT INTO `categories` (`categoryId`, `categoryName`) VALUES
+(1, 'Cannon'),
+(2, 'Explosive'),
+(3, 'Misc'),
+(4, 'Rocket'),
+(5, 'Trap');
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`categoryId`);
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+MODIFY `categoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- Constraints for table `inventory`
+--
 ALTER TABLE `inventory` 
 ADD CONSTRAINT `FK_inv_categories` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`categoryId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -117,34 +115,37 @@ ADD CONSTRAINT `FK_inv_categories` FOREIGN KEY (`categoryId`) REFERENCES `catego
 
 
 
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `clients`
 --
 
 DROP TABLE IF EXISTS `clients`;
-CREATE TABLE `clients` (
-  `clientId` int(10) UNSIGNED NOT NULL,
-  `clientFirstname` varchar(15) NOT NULL,
-  `clientLastname` varchar(25) NOT NULL,
-  `clientEmail` varchar(40) NOT NULL,
-  `clientPassword` varchar(255) NOT NULL,
-  `clientLevel` enum('1','2','3') NOT NULL DEFAULT '1',
-  `comments` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CREATE TABLE `clients` (
+    `clientId` int(10) UNSIGNED NOT NULL,
+    `clientFirstname` varchar(15) NOT NULL,
+    `clientLastname` varchar(25) NOT NULL,
+    `clientEmail` varchar(40) NOT NULL,
+    `clientPassword` varchar(255) NOT NULL,
+    `clientLevel` enum('1','2','3') NOT NULL DEFAULT '1',
+    `comments` text NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
 -- Indexes for table `clients`
 --
-ALTER TABLE `clients`
-  ADD PRIMARY KEY (`clientId`);
+  ALTER TABLE `clients`
+    ADD PRIMARY KEY (`clientId`);
 
 
 -- AUTO_INCREMENT for table `clients`
 --
-ALTER TABLE `clients`
-  MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  ALTER TABLE `clients`
+    MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 
 

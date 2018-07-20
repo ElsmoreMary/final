@@ -12,18 +12,36 @@ WHERE
   clientid = 1
 ;
 
-
-UPDATE 
-   inventory 
-SET 
-   invName = replace(invName,'Nylon','Climbing'), 
-   invDescription = replace(invDescription, 'nylon', 'climbing'), 
-   invStyle = replace(invStyle,'Nylon','Climbing') 
-WHERE 
-   invId = 15
+UPDATE
+  inventory
+SET
+  invName = replace(invName, 'Nylon', 'Climbing')
+WHERE
+  invId = 15
 ;
 
-SELECT*FROM inventory INNER JOIN categories ON inventory.categoryId=categories.categoryId WHERE inventory.categoryiD = 3
+UPDATE
+  inventory
+SET
+  invDescription = replace(invDescription, 'nylon', 'climbing')
+WHERE
+  invId = 15
+;
+
+UPDATE
+  inventory
+SET
+  invStyle = replace(invStyle, 'Nylon', 'Climbing')
+WHERE
+  invId = 15
+;
+
+SELECT*FROM 
+  inventory 
+INNER JOIN 
+  categories ON inventory.categoryId=categories.categoryId 
+WHERE 
+  inventory.categoryiD = 3
 
 DELETE 
 FROM
@@ -31,5 +49,3 @@ FROM
 WHERE 
     invID = 7
 ;
-
-

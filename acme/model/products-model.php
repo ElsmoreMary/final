@@ -11,7 +11,6 @@ function getCategoriesAndIds() {
     $stmt->closeCursor();
     return $categoriesAndIds;
 }
-
 //Contain a function for inserting a new category to the categories table.
 function addCategory($categoryname){
      $db = acmeConnect();
@@ -24,7 +23,6 @@ function addCategory($categoryname){
    $stmt->closeCursor();
    return $rowsChanged;
 }
-
 //Contain a function for inserting a new product to the inventory table.
 function addProduct( $invName, $invDescription, $invImage, $invThumbnail, $invPrice,
         $invStock, $invSize, $invWeight, $invLocation, $categoryId, $invVendor, $invStyle ){
@@ -54,7 +52,6 @@ $rowsChanged = $stmt->rowCount();
 $stmt->closeCursor();
 return $rowsChanged; 
 } 
-
 // Get basic product information from the inventory table
 function getProductBasics() {
  $db = acmeConnect();
@@ -65,7 +62,6 @@ function getProductBasics() {
  $stmt->closeCursor();
  return $products;
 }
-
 //Get product based on the product ID
 function getProductInfo($prodId){
  $db = acmeConnect();
@@ -77,7 +73,6 @@ function getProductInfo($prodId){
  $stmt->closeCursor();
  return $prodInfo;
 }
-
 //Update a product
 function updateProduct($catType, $prodName, $prodDesc, $prodImage, $prodThumbnail, $prodPrice, $prodStock, $prodSize, $prodWeight, $prodLocation, $prodVendor, $prodStyle, $prodId) {
     $db = acmeConnect();
@@ -101,7 +96,6 @@ function updateProduct($catType, $prodName, $prodDesc, $prodImage, $prodThumbnai
     $stmt->closeCursor();
     return $rowsChanged;
 }
-
 //Delete a Product
 function deleteProduct($prodId) {
     $db = acmeConnect();
@@ -114,15 +108,15 @@ function deleteProduct($prodId) {
     return $rowsChanged;
 }
 
-function getProductsByCategory($type){
- $db = acmeConnect();
- $sql = 'SELECT * FROM inventory WHERE categoryId IN (SELECT categoryId FROM categories WHERE categoryName = :catType)';
- $stmt = $db->prepare($sql);
- $stmt->bindValue(':catType', $type, PDO::PARAM_STR);
- $stmt->execute();
- $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
- $stmt->closeCursor();
- return $products;
+function getProductsByCategory($type){ 
+    $db = acmeConnect();
+    $sql = 'SELECT * FROM inventory WHERE categoryId IN (SELECT categoryId FROM categories WHERE categoryName = :catType)';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':catType', $type, PDO::PARAM_STR);
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $products;   
 }
 
 function getProductsInfo($type){

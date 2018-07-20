@@ -1,18 +1,15 @@
 <?php
 if ($_SESSION['clientData']['clientLevel'] < 2) {
- header('location: /acme/');
+ header('location: /acme/index.php');
  exit;
 }
 if(isset($_SESSION['message'])){
     $message = $_SESSION['message'];
 }?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Mary Reiko Elsmore">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <link href="../css/acmestylesheet.css" type="text/css" rel="stylesheet" media="screen">  
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/head.php'; ?>  
         <title>Acme Product Management</title>
     </head>
     <body>
@@ -21,27 +18,26 @@ if(isset($_SESSION['message'])){
             <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/header.php'; ?>
         </header>
         <nav>
-            <?php echo $navList; ?>
+            <?php echo navigation(); ?>
         </nav>
         <main>
-            <div>
-                <h1>Product Management</h1>
+            <div class="product">
+              <h1>Product Management</h1>
                 <p>Welcome to the product management page. Please choose an option below.</p>
-                <h3><a href="/acme/products/index.php?action=addcategory">Add a New Category </a></h3>
-                <h3><a href="../products/index.php?action=addproduct">Add a New Product</a></h3>
+                <p><a href="/acme/products/index.php?action=addcategory">Add a New Category </a></p>
+                <p><a href="../products/index.php?action=addproduct">Add a New Product</a></p>
             </div>
-            
         <?php
-        if (isset($message)) {
-         echo $message;
-        } if (isset($prodList)) {
-         echo $prodList;
-        }
-        ?>   
+            if (isset($message)) {
+            echo $message;
+            } if (isset($prodList)) {
+            echo $prodList;
+            }
+        ?>
         </main>
         <footer>
-            <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
-        </footer>
+                <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
+            </footer>
         </div>
     </body>
 </html>

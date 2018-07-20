@@ -7,27 +7,25 @@
 // Create or access a Session
 session_start();
 
-// Get the database connection file
 require_once '../library/connections.php';
-// Get the acme model for use as needed
 require_once '../model/acme-model.php';
-// Get the products model
 require_once '../model/products-model.php';
-// Get the products model
 require_once '../library/functions.php';
+require_once '../model/uploads-model.php';
 
 // Get the array of categories
-$categories = getCategories();
+
 $categoriesAndIds = getCategoriesAndIds();
 
-// Build a navigation bar using the $categories array
-$navList = '<ul>';
-$navList .= "<li><a href='/acme/view/index.php?action=home' title='View the Acme home page'>Home</a></li>";
-foreach ($categories as $category) {
-$navList .= "<li><a href='/acme/accounts/index.php?action=$category[categoryName]' title='View our $category[categoryName] product line'>$category[categoryName]</a></li>";
-}
-$navList .= '</ul>';
+$navList = navigation();
 
+// Build a navigation bar using the $categories array
+//$navList = '<ul>';
+//$navList .= "<li><a href='/acme/view/index.php?action=home' title='View the Acme home page'>Home</a></li>";
+//foreach ($categories as $category) {
+//$navList .= "<li><a href='/acme/accounts/index.php?action=$category[categoryName]' title='View our $category[categoryName] product line'>$category[categoryName]</a></li>";
+//}
+//$navList .= '</ul>';
 //Create a $catList variable to build a dynamic drop-down select list
 $catList = "<select name='categoryId'>";
 $catList .= '<option value ="">Please Choose</option>';
@@ -35,6 +33,7 @@ foreach ($categoriesAndIds as $catAndId) {
     $catList .= "<option value='$catAndId[categoryId]'>$catAndId[categoryName]</option>";
 }
 $catList .= "</select>";
+
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL){
  $action = filter_input(INPUT_GET, 'action');
@@ -62,10 +61,10 @@ switch ($action) {
 }
         include '../view/product-management.php';
         break;
-    case 'category':
+    case 'newcategory':
         include '../view/add-category.php';
         break;
-    case 'product':
+    case 'newproduct':
         include '../view/add-product.php';
         break;
     case 'addcategory':
@@ -73,7 +72,7 @@ switch ($action) {
         $categoryName = filter_input(INPUT_POST, 'categoryName');
         // Check for missing data
         if (empty($categoryName)) {
-            $message = '<p>Please provide information for the category field.</p>';
+            $message = '<p>Please provide information for the empty category field.</p>';
             include '../view/add-category.php';
             exit;
         }
@@ -81,7 +80,7 @@ switch ($action) {
         $categoryOutcome = addCategory($categoryName);
         // Check and report the result
         if ($categoryOutcome === 1) {
-            header('Location:/acme/products/index.php?action=category');
+            header('Location:/acme/products/index.php?action=newcategory');
             
             exit;
         } else {
@@ -127,7 +126,6 @@ switch ($action) {
             include '../view/add-product.php';
             exit;
         }
-        break;
     case 'mod':
         $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $prodInfo = getProductInfo($prodId);
@@ -152,15 +150,12 @@ switch ($action) {
         $prodStyle = filter_input(INPUT_POST, 'prodStyle', FILTER_SANITIZE_STRING);
         $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
           
-          
-          if (empty($catType) || empty($prodName) || empty($prodDescription) || empty($prodImage) || empty($prodThumbnail) || empty($prodPrice) || empty($prodStock) || empty($prodSize)  || empty($prodWeight)  || empty($prodLocation) || empty ($prodVendor) || empty($prodStyle)){
-              
+          if (empty($catType) || empty($prodName) || empty($prodDescription) || empty($prodImage) || empty($prodThumbnail) || empty($prodPrice) || empty($prodStock) || empty($prodSize)  || empty($prodWeight)  || empty($prodLocation) || empty ($prodVendor) || empty($prodStyle)){     
         $message ='<p>Please complete all information of the item! Double check the category of the item.</p>';
-              include '../view/prod-update.php';
+              include '../view/product-update.php';
               exit;
           }
-          
-          $updateResult = updateProduct($catType, $prodName, $prodDescription, $prodImage, $prodThumbnail, $prodPrice, $prodStock, $prodSize, $prodWeight, $prodLocation, $prodVendor, $prodStyle, $prodId);
+        $updateResult = updateProduct($catType, $prodName, $prodDescription, $prodImage, $prodThumbnail, $prodPrice, $prodStock, $prodSize, $prodWeight, $prodLocation, $prodVendor, $prodStyle, $prodId);
           
           if ($updateResult) {
               $message = "<p>Congratulations, $prodName was sucessfully updated.</p>";
@@ -173,8 +168,20 @@ switch ($action) {
               exit;
           }
         break;
-        
-        case 'del':
+    case 'category';
+        $type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        $products = getProductsByCategory($type);
+        if(!count($products)){
+        $message = "<p class='notice'>Sorry, no $type products could be found.</p>";
+        } else {
+        $prodDisplay = buildProductsDisplay($products);
+        }
+        //echo $prodDisplay;
+        //exit;
+        include '../view/category.php';
+        break;
+       
+    case 'del':
         $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         $prodInfo = getProductInfo($prodId);
         if (count($prodInfo) < 1) {
@@ -182,8 +189,7 @@ switch ($action) {
         }
         include '../view/product-delete.php';
         exit;
-    break;
-    
+        break;
     case 'deleteProd':
         $prodName = filter_input(INPUT_POST, 'prodName', FILTER_SANITIZE_STRING);
         $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
@@ -200,10 +206,25 @@ switch ($action) {
          header('location:/acme/products/');
          exit;
         }
-     
-      default;
+    case 'details':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
+        $product = getProductInfo($prodId);
+        
+        //call getThumbnails function
+        $prodThumbnails = getThumbnails($prodId);
+        
+        if(!count($product)){
+            $message = "<p class='notice'>Sorry, no $prodId  could be found.</p>";
+//        } else if (!count($prodThumbnails)) {
+//            $prodDetail = buildProductsDetail($product);
+        } else {
+            $prodDetail = buildProductsDetail($product);
+            $thumbnails = buildProdThumbnails($prodThumbnails);
+        }
+        include '../view/product-detail.php';
+        break;
+        
+    default;
       include'../view/product-management.php';
       exit;
 }
-//var_dump($categories);
-//exit;

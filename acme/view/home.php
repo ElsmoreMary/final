@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Mary Reiko Elsmore">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <link href="/acme/css/acmestylesheet.css" type="text/css" rel="stylesheet" media="screen">
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/head.php'; ?>
         <title>Acme Home Page</title>
     </head>
     <body>
@@ -13,10 +10,10 @@
             <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/header.php'; ?>
         </header>
             
-        <nav id="page-nav">
-            <?php echo $navList; ?>
+        <nav>
+             <?php echo navigation(); ?>
         </nav>
-            
+ 
         <main id="page-main">
             <h1>Welcome to Acme!</h1>
             <div class="banner">
@@ -26,37 +23,35 @@
                     <li>Quick lighting fuse</li>
                     <li>NHTSA approved seat belts</li>
                     <li>Mobile launch stand included</li>
+                    <li><br></li>
                     <li><a href="/acme/cart/"><img id="actionbtn" alt="Add to cart button" src="/acme/images/site/iwantit.gif"></a></li>
                 </ul>
             </div>
             </div>
-           
-            <div class="flexbox-split">
-                <div class="recipes">
-                    <h3>Featured Recipes</h3>
-                    <figure class="flexrecipe">
-                        <img src='/acme/images/recipes/bbqsand.jpg' alt='bbqsand'/>
-                        <figcaption>Pulled Road Runner BBQ</figcaption>
-                    </figure>
-                
-                    <figure class="flexrecipe"> 
-                        <img src='/acme/images/recipes/potpie.jpg' alt='potpie'/>
-                        <figcaption>Roadrunner Pot Pie</figcaption>
-                    </figure>
-     
-                    <figure class="flexrecipe">
-                        <img src='/acme/images/recipes/soup.jpg' alt='soup'/>
-                        <figcaption>Roadrunner Soup</figcaption>
-                    </figure>
-
-                    <figure class="flexrecipe">
-                        <img src='/acme/images/recipes/taco.jpg' alt='tacos'/>
-                        <figcaption>Roadrunner Tacos</figcaption>
-                    </figure>
+            
+            <div class="container">
+                <h3>Featured Recipes</h3>
+            <div class="recipes">
+                <div> 
+                    <img src='/acme/images/recipes/bbqsand.jpg' alt='bbqsand'/><br>
+                    <a href="#">Pulled Road Runner BBQ</a>
+                </div>
+                <div> 
+                    <img src='/acme/images/recipes/potpie.jpg' alt='potpie'/><br>
+                    <a href="#">Roadrunner Pot Pie</a>
+                </div>
+                <div>
+                    <img src='/acme/images/recipes/soup.jpg' alt='soup'/><br>
+                    <a href="#">Roadrunner Soup</a>
+                </div>
+                <div>
+                    <img src='/acme/images/recipes/taco.jpg' alt='tacos'/><br>
+                    <a href="#">Roadrunner Tacos</a>
+                </div>
             </div>
             
             <div class="reviews">
-                <h3>Get Dinner Rocket Reviews</h3>
+            <h3>Get Dinner Rocket Reviews</h3>
                     <ul>
                         <li><q>I don't know how I ever caught roadrunners before this.</q>(4/5)</li>
                         <li><q>That thing was fast!</q>(4/5)</li>
@@ -71,6 +66,5 @@
             <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
         </footer>
         </div>
-        
     </body>
 </html>

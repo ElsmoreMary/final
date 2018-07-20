@@ -5,16 +5,15 @@ if ($_SESSION['clientData']['clientLevel'] < 2) {
 }
 ?>
 <?php
-$catList = "<select name='catType' id=catType>";
-$catList .= '<option value ="">Please Choose</option>';
+// Build the category list
+$catList = "<select name='catType' id='catType'>";
+$catList .= '<option>Choose a Category</option>';
 foreach ($categoriesAndIds as $catAndId) {
     $catList .= "<option value='$catAndId[categoryId]'";
     if(isset($catType)){
-    
-    if($catAndId['categoryId'] === $catType){
-      $catList .= ' selected ';
-  }
-  
+       if($catAndId['categoryId'] === $catType){
+       $catList .= ' selected ';
+  }  
 } elseif (isset($prodInfo['categoryId'])) {
   if($catAndId['categoryId'] === $prodInfo['categoryId']){
    $catList .= ' selected ';
@@ -25,25 +24,21 @@ foreach ($categoriesAndIds as $catAndId) {
 $catList .= "</select>";
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="author" content="Mary Reiko Elsmore">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-        <link href="../css/acmestylesheet.css" type="text/css" rel="stylesheet" media="screen">  
-        <title>
-            <?php if(isset($prodInfo['invName'])){ echo "Modify $prodInfo[invName] ";} elseif(isset($prodName)) { echo $prodName; }?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/head.php'; ?>  
+        <title><?php if(isset($prodInfo['invName'])){ echo "Modify $prodInfo[invName] ";} elseif(isset($prodName)) { echo $prodName; }?>
         </title>
     </head>
     <body>
         <div id="page-container">
-        <header>
-            <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/header.php'; ?>
-        </header>
-        <nav>
-            <?php echo $navList; ?>
-        </nav>
-        <main>
+            <header>
+                <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/header.php'; ?>
+            </header>
+            <nav>
+                <?php echo navigation(); ?>
+            </nav>
+            <main>
             <div>
                 <h1><?php if(isset($prodInfo['invName'])){ echo "Modify $prodInfo[invName] ";} elseif(isset($prodName)) { echo $prodName; }?></h1>
                  <p>Update a product below. All fields are required!</p>
@@ -99,19 +94,17 @@ $catList .= "</select>";
                         <label>Product Style</label><br>
                         <input type="text" id="prodStyle" name="prodStyle"  <?php if(isset($prodStyle))
                         {echo "value='$prodStyle'";}elseif(isset($prodInfo['invStyle'])) {echo "value='$prodInfo[invStyle]'"; } ?> required ><br><br>
-
                         
-                        <input type="hidden" name="action" value="updateProd">
+                        <input name="submit" type="submit" value="Update Product"><br>
                         <input type="hidden" name="prodId" value="<?php if(isset($prodInfo['invId'])){ echo $prodInfo['invId'];} elseif(isset($prodId)){ echo $prodId; } ?>">
-                        <input type="submit" name="submit" value="Update Product">
+                        <input type="hidden" name="action" value="updateProd">
                     </fieldset>
-                </form>                       
+                </form>                        
             </div>
-            
         </main>
         <footer>
-            <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
-        </footer>
+                <?php include $_SERVER['DOCUMENT_ROOT'] . '/acme/common/footer.php'; ?>
+            </footer>
         </div>
     </body>
 </html>

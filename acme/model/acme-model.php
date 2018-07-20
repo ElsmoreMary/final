@@ -1,7 +1,7 @@
 <?php
 
 /* 
- *  This is the Acme Model
+ * Acme Model
  */
 
 function getCategories(){
@@ -22,4 +22,3 @@ $stmt->closeCursor();
 // was called (this should be the controller)
 return $categories;
 }
-
